@@ -64,6 +64,7 @@ public class AudioPlayer {
     if (mp != null) {
       mp.stop();
       mp=null;
+
      /* try { mp.prepare(); }
       catch (IOException e) {}*/
     }
