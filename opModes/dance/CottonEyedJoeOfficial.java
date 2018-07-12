@@ -49,7 +49,7 @@ import ftc10131.demoBot.robot.RobotDemo;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="CEJ ", group="Hooray")
+@Autonomous(name="CottonEyedJoe ", group="Hooray")
 //@Disabled
 public class CottonEyedJoeOfficial extends LinearOpMode {
 
@@ -65,6 +65,7 @@ public class CottonEyedJoeOfficial extends LinearOpMode {
         demoBot.init();
 
         demoBot.phoneBranch.sitUp();
+        demoBot.phoneBranch.lookForward();
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         runtime.reset();
@@ -73,7 +74,7 @@ public class CottonEyedJoeOfficial extends LinearOpMode {
         while (opModeIsActive()) {
             /////A step is 455 ms
             /////////Kick///////////////////////////////
-
+            demoBot.phoneBranch.lookForward();
             demoBot.phoneBranch.spine.setPosition(0.85);
             sleep(227);
             demoBot.phoneBranch.spine.setPosition(0.70);
@@ -95,6 +96,16 @@ public class CottonEyedJoeOfficial extends LinearOpMode {
             ////////////////////////////////////////////
             /////////Side Kick//////////////////////////
 
+            demoBot.phoneBranch.spine.setPosition(0.85);
+            demoBot.phoneBranch.neck.setPosition(0.2);
+            sleep(455);
+            demoBot.phoneBranch.neck.setPosition(0.7);
+            sleep(455);
+            demoBot.phoneBranch.spine.setPosition(0.35);
+            demoBot.phoneBranch.neck.setPosition(0.2);
+            sleep(455);
+            demoBot.phoneBranch.neck.setPosition(0.7);
+            sleep(455);
 
 
 
