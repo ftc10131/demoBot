@@ -49,7 +49,7 @@ import ftc10131.demoBot.robot.RobotDemo;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="CottonEyedJoe ", group="Hooray")
+@Autonomous(name="CottonEyedJoe", group="Dance")
 //@Disabled
 public class CottonEyedJoeOfficial extends LinearOpMode {
 
@@ -66,6 +66,7 @@ public class CottonEyedJoeOfficial extends LinearOpMode {
 
         demoBot.phoneBranch.sitUp();
         demoBot.phoneBranch.lookForward();
+
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         runtime.reset();
