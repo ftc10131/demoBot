@@ -43,6 +43,9 @@ public class DriveTrain {
         backLeft.setPower(y+x-turny);
         backRight.setPower(y-x+turny);
     }
+    public void stop(){
+        holoDrive(0,0,0);
+    }
 
 
 
