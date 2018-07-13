@@ -34,6 +34,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import ftc10131.demoBot.robot.RobotDemo;
+import ftc10131.demoBot.robot.util.AudioPlayer;
 
 
 /**
@@ -63,33 +64,58 @@ public class CupidShuffle extends LinearOpMode {
         telemetry.update();
         demoBot = new RobotDemo(hardwareMap);
         demoBot.init();
-
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         runtime.reset();
+        AudioPlayer.init(hardwareMap.appContext, "cupidshuffleonbeat.mp3");
+        AudioPlayer.start(hardwareMap.appContext);
 
 
-        /////A step is 455 ms
-        /////////Kick///////////////////////////////
+        for (int m = 0; m < 16; m++) {
+            demoBot.phoneBranch.spine.setPosition(0.65);
+            sleep(418);
+            demoBot.phoneBranch.spine.setPosition(0.75);
+            sleep(418);
+        }
 
-        demoBot.phoneBranch.spine.setPosition(0.85);
-        sleep(227);
-        demoBot.phoneBranch.spine.setPosition(0.70);
-        sleep(227);
-        demoBot.phoneBranch.spine.setPosition(0.85);
-        sleep(227);
-        demoBot.phoneBranch.spine.setPosition(0.70);
-        sleep(227);
-        /////
-        demoBot.phoneBranch.spine.setPosition(0.35);
-        sleep(227);
-        demoBot.phoneBranch.spine.setPosition(0.50);
-        sleep(227);
-        demoBot.phoneBranch.spine.setPosition(0.35);
-        sleep(227);
-        demoBot.phoneBranch.spine.setPosition(0.50);
-        sleep(227);
+        for (int j = 0; j < 16; j++) {
 
+            for (int k = 0; k < 4; k++) {
+                demoBot.driveTrain.holoDrive(1, 0, 0);
+                sleep(418);
+                demoBot.driveTrain.holoDrive(0, 0, 0);
+                sleep(418);
+            }
 
+            for (int k = 0; k < 4; k++) {
+                demoBot.driveTrain.holoDrive(-1, 0, 0);
+                sleep(418);
+                demoBot.driveTrain.holoDrive(0, 0, 0);
+                sleep(418);
+            }
+
+            for (int i = 0; i < 2; i++) {
+                demoBot.phoneBranch.spine.setPosition(0.65);
+                demoBot.phoneBranch.neck.setPosition(0.75);
+                sleep(418);
+                demoBot.phoneBranch.spine.setPosition(0.2);
+                demoBot.phoneBranch.neck.setPosition(0.45);
+                sleep(418);
+                demoBot.phoneBranch.spine.setPosition(0.65);
+                demoBot.phoneBranch.neck.setPosition(0.15);
+                sleep(418);
+                demoBot.phoneBranch.spine.setPosition(0.2);
+                demoBot.phoneBranch.neck.setPosition(0.45);
+                sleep(418);
+            }
+
+            int encStart = demoBot.driveTrain.backRight.getCurrentPosition();
+            demoBot.driveTrain.holoDrive(0, 0, -1);
+            while (demoBot.driveTrain.backRight.getCurrentPosition() > encStart - 3000) {
+                sleep(20);
+            }
+            demoBot.driveTrain.holoDrive(0, 0, 0);
+        }
+        AudioPlayer.stop();
     }
 }
