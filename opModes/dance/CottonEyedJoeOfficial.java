@@ -57,6 +57,7 @@ public class CottonEyedJoeOfficial extends LinearOpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     public RobotDemo demoBot;
+    double timeTarget;
 
     @Override
     public void runOpMode() {
@@ -70,9 +71,11 @@ public class CottonEyedJoeOfficial extends LinearOpMode {
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-        runtime.reset();
+
         AudioPlayer.init(hardwareMap.appContext, "cottoneyedjoeonbeat.mp3");
         AudioPlayer.start(hardwareMap.appContext);
+        runtime.reset();
+        timeTarget = 0;
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
@@ -80,36 +83,36 @@ public class CottonEyedJoeOfficial extends LinearOpMode {
             /////////Kick///////////////////////////////
             demoBot.phoneBranch.lookForward();
             demoBot.phoneBranch.spine.setPosition(0.85);
-            sleep(227);
+            wait(227);
             demoBot.phoneBranch.spine.setPosition(0.70);
-            sleep(227);
+            wait(227);
             demoBot.phoneBranch.spine.setPosition(0.85);
-            sleep(227);
+            wait(227);
             demoBot.phoneBranch.spine.setPosition(0.70);
-            sleep(227);
+            wait(227);
             /////
             demoBot.phoneBranch.spine.setPosition(0.35);
-            sleep(227);
+            wait(227);
             demoBot.phoneBranch.spine.setPosition(0.50);
-            sleep(227);
+            wait(227);
             demoBot.phoneBranch.spine.setPosition(0.35);
-            sleep(227);
+            wait(227);
             demoBot.phoneBranch.spine.setPosition(0.50);
-            sleep(227);
+            wait(227);
 
             ////////////////////////////////////////////
             /////////Side Kick//////////////////////////
 
             demoBot.phoneBranch.spine.setPosition(0.85);
             demoBot.phoneBranch.neck.setPosition(0.2);
-            sleep(455);
+            wait(455);
             demoBot.phoneBranch.neck.setPosition(0.7);
-            sleep(455);
+            wait(455);
             demoBot.phoneBranch.spine.setPosition(0.35);
             demoBot.phoneBranch.neck.setPosition(0.2);
-            sleep(455);
+            wait(455);
             demoBot.phoneBranch.neck.setPosition(0.7);
-            sleep(455);
+            wait(455);
 
             ////////////////////////////////////////////
             ////////Move Normally///////////////////////
@@ -117,16 +120,24 @@ public class CottonEyedJoeOfficial extends LinearOpMode {
             demoBot.driveTrain.holoDrive(1,0,0);
             demoBot.phoneBranch.sitUp();
             demoBot.phoneBranch.lookForward();
-            sleep(1820);
+            wait(1820);
 
             ////////////////////////////////////////////
             ////////Move and Spin///////////////////////
 
             demoBot.driveTrain.holoDrive(-1,0,0);
-            sleep(1820);
+            wait(1820);
             demoBot.driveTrain.stop();
 
         }
         AudioPlayer.stop();
     }
+
+    public void wait(int milliseconds){
+        timeTarget+= milliseconds;
+        while(timeTarget > runtime.milliseconds()){
+            sleep(10);
+        }
+    }
+
 }
