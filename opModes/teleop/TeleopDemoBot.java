@@ -37,6 +37,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 import ftc10131.demoBot.robot.RobotDemo;
+import ftc10131.demoBot.robot.movers.PhoneBranch;
 
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
@@ -44,21 +45,21 @@ import ftc10131.demoBot.robot.RobotDemo;
  * The names of OpModes appear on the menu of the FTC Driver Station.
  * When an selection is made from the menu, the corresponding OpMode
  * class is instantiated on the Robot Controller and executed.
- *
+ * <p>
  * This particular OpMode just executes a basic Tank Drive Teleop for a two wheeled robot
  * It includes all the skeletal structure that all iterative OpModes contain.
- *
+ * <p>
  * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Teleop", group="Teleop")
+@TeleOp(name = "Teleop", group = "Teleop")
 //@Disabled
-public class TeleopDemoBot extends OpMode
-{
+public class TeleopDemoBot extends OpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     public RobotDemo demoBot;
+    public PhoneBranch phoneBranch;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -68,6 +69,7 @@ public class TeleopDemoBot extends OpMode
         telemetry.addData("Status", "Initialized");
 
         demoBot = new RobotDemo(hardwareMap);
+        phoneBranch = new PhoneBranch(hardwareMap);
         demoBot.init();
 
         // Tell the driver that initialization is complete.
@@ -96,6 +98,22 @@ public class TeleopDemoBot extends OpMode
     public void loop() {
 
         demoBot.driveTrain.holoDrive(gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_stick_x);
+
+        if (gamepad2.dpad_down)
+            demoBot.phoneBranch.layBack();
+
+        if (gamepad2.dpad_up)
+            demoBot.phoneBranch.sitUp();
+
+        if (gamepad2.y)
+            demoBot.phoneBranch.lookForward();
+
+        if (gamepad2.x)
+            demoBot.phoneBranch.lookLeft();
+
+        if (gamepad2.b)
+            demoBot.phoneBranch.lookRight();
+
 
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());

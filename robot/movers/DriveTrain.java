@@ -38,10 +38,10 @@ public class DriveTrain {
     }
 
     public void holoDrive(double x, double y, double turny){
-        frontLeft.setPower(y-x-turny);
-        frontRight.setPower(y+x+turny);
-        backLeft.setPower(y+x-turny);
-        backRight.setPower(y-x+turny);
+        frontLeft.setPower(-y-x-turny);
+        frontRight.setPower(-y+x+turny);
+        backLeft.setPower(-y+x-turny);
+        backRight.setPower(-y-x+turny);
     }
     public void stop(){
         holoDrive(0,0,0);

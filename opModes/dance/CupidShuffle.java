@@ -113,7 +113,7 @@ public class CupidShuffle extends LinearOpMode {
 
             demoBot.phoneBranch.spine.setPosition(0.65);
             int encStart = demoBot.driveTrain.backRight.getCurrentPosition();
-            demoBot.driveTrain.holoDrive(0, 0, -1);
+            demoBot.driveTrain.holoDrive(0, 0, -0.7);
             while (opModeIsActive() && (demoBot.driveTrain.backRight.getCurrentPosition() > encStart - 2700)) {
                 sleep(20);
             }
