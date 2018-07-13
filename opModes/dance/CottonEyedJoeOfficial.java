@@ -135,7 +135,7 @@ public class CottonEyedJoeOfficial extends LinearOpMode {
 
     public void wait(int milliseconds){
         timeTarget+= milliseconds;
-        while(timeTarget > runtime.milliseconds()){
+        while(opModeIsActive()&& (timeTarget > runtime.milliseconds())){
             sleep(10);
         }
     }

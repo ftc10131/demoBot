@@ -57,6 +57,7 @@ public class CupidShuffle extends LinearOpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     public RobotDemo demoBot;
+    double timeTarget;
 
     @Override
     public void runOpMode() {
@@ -66,56 +67,67 @@ public class CupidShuffle extends LinearOpMode {
         demoBot.init();
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-        runtime.reset();
         AudioPlayer.init(hardwareMap.appContext, "cupidshuffleonbeat.mp3");
         AudioPlayer.start(hardwareMap.appContext);
-
+        runtime.reset();
+        timeTarget = 0;
 
         for (int m = 0; m < 16; m++) {
             demoBot.phoneBranch.spine.setPosition(0.65);
-            sleep(418);
+            wait(418);
             demoBot.phoneBranch.spine.setPosition(0.75);
-            sleep(418);
+            wait(418);
         }
 
         for (int j = 0; j < 16; j++) {
 
             for (int k = 0; k < 4; k++) {
+                demoBot.phoneBranch.spine.setPosition(0.65);
                 demoBot.driveTrain.holoDrive(1, 0, 0);
-                sleep(418);
+                wait(418);
                 demoBot.driveTrain.holoDrive(0, 0, 0);
-                sleep(418);
+                wait(418);
             }
 
             for (int k = 0; k < 4; k++) {
                 demoBot.driveTrain.holoDrive(-1, 0, 0);
-                sleep(418);
+                wait(418);
                 demoBot.driveTrain.holoDrive(0, 0, 0);
-                sleep(418);
+                wait(418);
             }
 
             for (int i = 0; i < 2; i++) {
                 demoBot.phoneBranch.spine.setPosition(0.65);
                 demoBot.phoneBranch.neck.setPosition(0.75);
-                sleep(418);
-                demoBot.phoneBranch.spine.setPosition(0.2);
+                wait(418);
+                demoBot.phoneBranch.spine.setPosition(0.4);
                 demoBot.phoneBranch.neck.setPosition(0.45);
-                sleep(418);
+                wait(418);
                 demoBot.phoneBranch.spine.setPosition(0.65);
                 demoBot.phoneBranch.neck.setPosition(0.15);
-                sleep(418);
-                demoBot.phoneBranch.spine.setPosition(0.2);
+                wait(418);
+                demoBot.phoneBranch.spine.setPosition(0.4);
                 demoBot.phoneBranch.neck.setPosition(0.45);
-                sleep(418);
+                wait(418);
             }
 
+            demoBot.phoneBranch.spine.setPosition(0.65);
             int encStart = demoBot.driveTrain.backRight.getCurrentPosition();
             demoBot.driveTrain.holoDrive(0, 0, -1);
-            while (demoBot.driveTrain.backRight.getCurrentPosition() > encStart - 3000) {
+            while (opModeIsActive() && (demoBot.driveTrain.backRight.getCurrentPosition() > encStart - 2700)) {
                 sleep(20);
             }
             demoBot.driveTrain.holoDrive(0, 0, 0);
+            wait(8*418);
         }
+        wait(2000);
         AudioPlayer.stop();
+    }
+
+    public void wait(int milliseconds) {
+        timeTarget += milliseconds;
+        while (opModeIsActive() && (timeTarget > runtime.milliseconds())) {
+            sleep(10);
+        }
     }
 }
