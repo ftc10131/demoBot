@@ -34,6 +34,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import ftc10131.demoBot.robot.RobotDemo;
+import ftc10131.demoBot.robot.util.AudioPlayer;
 
 
 /**
@@ -70,6 +71,8 @@ public class CottonEyedJoeOfficial extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         runtime.reset();
+        AudioPlayer.init(hardwareMap.appContext, "cottoneyedjoeonbeat.mp3");
+        AudioPlayer.start(hardwareMap.appContext);
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
@@ -108,14 +111,22 @@ public class CottonEyedJoeOfficial extends LinearOpMode {
             demoBot.phoneBranch.neck.setPosition(0.7);
             sleep(455);
 
-
-
             ////////////////////////////////////////////
             ////////Move Normally///////////////////////
+
+            demoBot.driveTrain.holoDrive(1,0,0);
+            demoBot.phoneBranch.sitUp();
+            demoBot.phoneBranch.lookForward();
+            sleep(1820);
 
             ////////////////////////////////////////////
             ////////Move and Spin///////////////////////
 
+            demoBot.driveTrain.holoDrive(-1,0,0);
+            sleep(1820);
+            demoBot.driveTrain.stop();
+
         }
+        AudioPlayer.stop();
     }
 }
