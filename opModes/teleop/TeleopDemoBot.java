@@ -66,12 +66,12 @@ public class TeleopDemoBot extends OpMode {
      */
     @Override
     public void init() {
-        telemetry.addData("Status", "Initialized");
+        telemetry.addData("Status", "Initializing: DO NOT PRESS A BUTTON IM WATCHING YOU");
 
         demoBot = new RobotDemo(hardwareMap);
         phoneBranch = new PhoneBranch(hardwareMap);
         demoBot.init();
-
+        telemetry.clear();
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
     }
@@ -97,7 +97,24 @@ public class TeleopDemoBot extends OpMode {
     @Override
     public void loop() {
 
-        demoBot.driveTrain.holoDrive(gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_stick_x);
+        demoBot.driveTrain.holoGyro(1 * gamepad1.left_stick_x, 1 * -gamepad1.left_stick_y, 1 * gamepad1.right_stick_x, demoBot.gyro.getHeading());
+
+        if(gamepad1.a) {
+            demoBot.driveTrain.setHeadingOffset(180);
+            demoBot.gyro.resetZAxisIntegrator();
+        }
+        if(gamepad1.b) {
+            demoBot.driveTrain.setHeadingOffset(90);
+            demoBot.gyro.resetZAxisIntegrator();
+        }
+        if(gamepad1.x) {
+            demoBot.driveTrain.setHeadingOffset(270);
+            demoBot.gyro.resetZAxisIntegrator();
+        }
+        if(gamepad1.y) {
+            demoBot.driveTrain.setHeadingOffset(0);
+            demoBot.gyro.resetZAxisIntegrator();
+        }
 
         if (gamepad2.dpad_down)
             demoBot.phoneBranch.layBack();
